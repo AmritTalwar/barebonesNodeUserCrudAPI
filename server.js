@@ -4,8 +4,8 @@ const fs = require("fs");
 // SETUP APPROPRIATE CONFIG FOR DEV/PROD ENV
 let config;
 process.env.NODE_ENV === "DEV"
-  ? (config = require("./secrets/DEV_ENV_VARS"))
-  : (config = require("./secrets/PROD_ENV_VARS"));
+  ? (config = require("./config/DEV"))
+  : (config = require("../config/PROD"));
 Object.keys(config).forEach(env_var => {
   process.env[env_var] = config[env_var];
 });

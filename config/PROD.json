@@ -1,0 +1,4 @@
+{
+  "DB": "prodDB.json",
+  "PORT": 8080
+}
