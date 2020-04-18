@@ -11,14 +11,14 @@
   "author": "Amrit Talwar",
   "license": "ISC",
   "devDependencies": {
+    "nodemon": "^2.0.2",
+    "prettier": "^1.19.1"
+  },
+  "dependencies": {
     "lodash": "^4.17.15",
     "mocha": "^7.1.0",
     "moment": "^2.24.0",
     "node-fetch": "^2.6.0",
     "cookie": "^0.4.0"
-  },
-  "dependencies": {
-    "nodemon": "^2.0.2",
-    "prettier": "^1.19.1"
   }
 }
