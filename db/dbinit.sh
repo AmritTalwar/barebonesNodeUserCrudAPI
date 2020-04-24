@@ -1,4 +1,4 @@
-#!/bin/zsh
+#!/bin/sh
 # spinup postgresql container (see docker-compose.yml)
 docker-compose up -d
 
