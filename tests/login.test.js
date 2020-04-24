@@ -2,6 +2,7 @@ const fs = require("fs");
 
 const assert = require("assert");
 const fetch = require("node-fetch");
+const User = require("../models/User");
 
 // TODO: Write test for malformed cookie response (when a user tries to login with an tampered session cookie)
 describe("/login", () => {
@@ -58,9 +59,7 @@ describe("/login", () => {
     });
   });
 
-  after("Flush test DB", () => {
-    fs.writeFileSync(__dirname + `/../${process.env.DB}`, "{}", () => {
-      console.log("Test DB has been flushed");
-    });
+  after("Flush test DB", async () => {
+    await User.flushAllUsers();
   });
 });

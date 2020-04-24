@@ -2,7 +2,7 @@ const assert = require("assert");
 const fs = require("fs");
 const lodash = require("lodash");
 const hash = require("../utils/hash");
-const User = require("../models/user");
+const User = require("../models/User");
 const fetch = require("node-fetch");
 
 describe("/post-new-user", () => {
@@ -19,10 +19,11 @@ describe("/post-new-user", () => {
         assert.equal(response.status, 201);
       });
     });
+
     it("Test user should be present in the test DB with the correct data", async () => {
-      const testUser = User.getUser("Joe Bloggs");
+      const testUser = await User.getUser("Joe Bloggs");
       assert.equal(
-        lodash.isEqual(testUser, {
+        lodash.isMatch(testUser, {
           email: "Joe@Bloggs.com",
           password: hash("Bloggs1234")
         }),
@@ -46,9 +47,7 @@ describe("/post-new-user", () => {
     });
   });
 
-  after("Flush test DB", () => {
-    fs.writeFileSync(__dirname + `/../${process.env.DB}`, "{}", () => {
-      console.log("Test DB has been flushed");
-    });
+  after("Flush test DB", async () => {
+    await User.flushAllUsers();
   });
 });
