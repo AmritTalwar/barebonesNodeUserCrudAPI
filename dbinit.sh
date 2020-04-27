@@ -1,7 +1,7 @@
  docker-compose exec postgres bash -c "
   echo '***BUILDING DATABASE TABLES***'
 
-  until pg_isready -U postgres
+  until pg_isready
   do
     echo 'Waiting for postgres db to be ready to accept connections'
     sleep 2;
