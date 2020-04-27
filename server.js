@@ -1,15 +1,6 @@
 const https = require("https");
 const fs = require("fs");
 
-// SETUP APPROPRIATE CONFIG FOR DEV/PROD ENV
-let config;
-process.env.NODE_ENV === "DEV"
-  ? (config = require("./config/DEV"))
-  : (config = require("../config/PROD"));
-Object.keys(config).forEach(env_var => {
-  process.env[env_var] = config[env_var];
-});
-
 // SETUP SECURITY OPTIONS FOR HTTPS
 const httpsOptions = {
   key: fs.readFileSync("./secrets/key.pem"),
@@ -35,6 +26,6 @@ const httpsServer = https.createServer(httpsOptions, (req, res) => {
   }
 });
 
-httpsServer.listen(process.env.PORT, () => {
-  console.log(`https server listening on port ${process.env.PORT}...`);
+httpsServer.listen(1234, () => {
+  console.log(`https server listening at ${process.env.BASE_SERVER_URL}`);
 });

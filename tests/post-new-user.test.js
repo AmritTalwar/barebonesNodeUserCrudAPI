@@ -1,5 +1,4 @@
 const assert = require("assert");
-const fs = require("fs");
 const lodash = require("lodash");
 const hash = require("../utils/hash");
 const User = require("../models/User");
@@ -8,7 +7,7 @@ const fetch = require("node-fetch");
 describe("/post-new-user", () => {
   describe("When posting valid stringified JSON of the user creds", () => {
     it("We should get a 201 Authentication successful response", async () => {
-      await fetch(`https://localhost:${process.env.PORT}/post-new-user`, {
+      await fetch(`${process.env.BASE_SERVER_URL}/post-new-user`, {
         method: "POST",
         body: JSON.stringify({
           email: "Joe@Bloggs.com",
@@ -34,7 +33,7 @@ describe("/post-new-user", () => {
 
   describe("When trying to post an existing user (existing username)", () => {
     it("Should get a 409 response when posting the same user again", async () => {
-      await fetch(`https://localhost:${process.env.PORT}/post-new-user`, {
+      await fetch(`${process.env.BASE_SERVER_URL}/post-new-user`, {
         method: "POST",
         body: JSON.stringify({
           email: "foo@bar.com",

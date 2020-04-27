@@ -3,7 +3,9 @@ const { Pool } = require("pg");
 
 const pgPool = new Pool({
   user: "apiusername",
-  host: "localhost",
+  // host='localhost' when running tests so they can be ran locally without exec'ing into the server container
+  // host='postgres' when running in container to be able to access the postgres service on the same docker network
+  host: process.env.DB_HOST,
   database: "apidatabase",
   password: "apipassword",
   port: 5432
@@ -49,7 +51,7 @@ class User {
   }
 
   static async flushAllUsers() {
-    if (process.env.NODE_ENV === "PROD") {
+    if (process.env.NODE_ENV !== "DEV") {
       throw Error("DO NOT USE THIS METHOD IN PROD, THIS IS ONLY FOR DEV ENV");
     }
 
