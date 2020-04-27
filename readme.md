@@ -1,3 +1,12 @@
+Motivations
+---
+The main point of this repo is to display my journey of trying to learn backend development, from crawling to sprinting.
+
+My idea is that i start with a very simple idea of what a CRUD api should look like using no frameworks or anything of the sort (litterally just a node http server writting to a json file), then slowly build this up as i learn about different technologies/ frameworks/ principles. Perhaps when i get sick of this backend stuff i will slap a frontend around this api.
+
+Open to PRs/ suggestions :) 
+
+
 Dependencies
 ---
 Have docker and docker-compose installed.
