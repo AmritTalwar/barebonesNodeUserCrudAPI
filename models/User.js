@@ -20,7 +20,7 @@ class User {
   }
 
   async saveUser() {
-    await pgPool.connect().catch(err => {
+    const client = await pgPool.connect().catch(err => {
       throw Error(`Could not connect to db: ${err}`);
     });
 
@@ -29,11 +29,12 @@ class User {
       values: [this.username, this.email, this.password]
     };
 
-    await pgPool.query(saveUserQuery);
+    await client.query(saveUserQuery);
+    await client.release();
   }
 
   static async getUser(username) {
-    await pgPool.connect().catch(err => {
+    const client = await pgPool.connect().catch(err => {
       throw Error(`Could not connect to db: ${err}`);
     });
 
@@ -43,6 +44,7 @@ class User {
     };
 
     const queryResponse = await pgPool.query(getUserQuery);
+    await client.release();
 
     const userNotInDB = !queryResponse.rows[0];
     if (userNotInDB) return {};
@@ -55,12 +57,13 @@ class User {
       throw Error("DO NOT USE THIS METHOD IN PROD, THIS IS ONLY FOR DEV ENV");
     }
 
-    await pgPool.connect().catch(err => {
+    const client = await pgPool.connect().catch(err => {
       throw Error(`Could not connect to db: ${err}`);
     });
 
     await pgPool.query("TRUNCATE USERS");
     await pgPool.query("DELETE FROM USERS");
+    await client.release();
   }
 }
 

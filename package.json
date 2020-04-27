@@ -4,7 +4,7 @@
   "description": "homework",
   "main": "server.js",
   "scripts": {
-    "test": "env DB_HOST=localhost BASE_SERVER_URL='https://localhost:1234' NODE_TLS_REJECT_UNAUTHORIZED=\"0\" mocha 'tests/*test.js'",
+    "test": "env NODE_ENV=DEV DB_HOST=localhost BASE_SERVER_URL='https://localhost:1234' NODE_TLS_REJECT_UNAUTHORIZED=\"0\" mocha 'tests/*test.js'",
     "start": "env NODE_TLS_REJECT_UNAUTHORIZED=\"0\" nodemon server.js"
   },
   "author": "Amrit Talwar",
