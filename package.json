@@ -4,9 +4,8 @@
   "description": "homework",
   "main": "server.js",
   "scripts": {
-    "test": "env NODE_TLS_REJECT_UNAUTHORIZED=\"0\"  PORT=1234 mocha 'tests/*test.js'",
-    "start:PROD": "env NODE_TLS_REJECT_UNAUTHORIZED=\"0\" NODE_ENV=PROD nodemon server.js",
-    "start:DEV": "env NODE_TLS_REJECT_UNAUTHORIZED=\"0\" NODE_ENV=DEV nodemon server.js"
+    "test": "env DB_HOST=localhost BASE_SERVER_URL='https://localhost:1234' NODE_TLS_REJECT_UNAUTHORIZED=\"0\" mocha 'tests/*test.js'",
+    "start": "env NODE_TLS_REJECT_UNAUTHORIZED=\"0\" nodemon server.js"
   },
   "author": "Amrit Talwar",
   "license": "ISC",

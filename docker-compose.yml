@@ -1,0 +1,22 @@
+version: '3'
+services:
+  server:
+    build: .
+    command: npm start
+    volumes:
+      - .:/usr/src/server/
+    ports:
+      - 1234:1234
+    environment:
+      NODE_ENV: "DEV"
+      BASE_SERVER_URL: "https://localhost:1234"
+      DB_HOST: "postgres"
+  postgres:
+    image: postgres:12
+    environment:
+      POSTGRES_USER: apiusername
+      POSTGRES_DB: apidatabase
+      POSTGRES_PASSWORD: apipassword
+    ports:
+      - 5432:5432
+

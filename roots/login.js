@@ -22,13 +22,10 @@ const loginRootHandler = (req, res) => {
             Buffer.concat(postDataChunks).toString()
           );
           // Attempt user authentication via /authenticate-user endpoint
-          await fetch(
-            `https://localhost:${process.env.PORT}/authenticate-user`,
-            {
-              method: "POST",
-              body: JSON.stringify(parsedPostData)
-            }
-          ).then(response => {
+          await fetch(`${process.env.BASE_SERVER_URL}/authenticate-user`, {
+            method: "POST",
+            body: JSON.stringify(parsedPostData)
+          }).then(response => {
             switch (response.status) {
               case 200:
                 loginSessionHandler.setLoginSessionCookie();
