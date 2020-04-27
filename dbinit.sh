@@ -1,4 +1,12 @@
  docker-compose exec postgres bash -c "
+  echo '***BUILDING DATABASE TABLES***'
+
+  until pg_isready -U postgres
+  do
+    echo 'Waiting for postgres db to be ready to accept connections'
+    sleep 2;
+  done
+
   psql -d apidatabase -U apiusername -c '
   CREATE TABLE IF NOT EXISTS Users (
     user_id serial PRIMARY KEY,
@@ -7,4 +15,3 @@
     password VARCHAR(256) NOT NULL
   );'
 "
-echo "Setup complete, query away!"
