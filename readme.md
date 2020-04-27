@@ -1,26 +1,31 @@
 Dependencies
 ---
-Install all dependencies by running `npm install` at project route.
+Have docker and docker-compose installed.
 
-Endpoints 
+Services
 ---
- - POST /post-new-user - Post new user creds (email, username, password) as JSON
- - POST /authenticate-user - Authenticate user creds
- - GET/POST /login - Login via posting credentials or via persisted login session cookie (client side cookie)
+- Server: Run a nodejs server allowing CRUD operations over https. Endpoints:
+    - POST /post-new-user - Post new user creds (email, username, password) as JSON
+    - POST /authenticate-user - Authenticate user creds
+    - GET/POST /login - Login via posting credentials or via persisted login session cookie (client side cookie)
 
-Database
+- Postgres: Run a postgres server to store users
+
+
+Start Services
 ---
-This API uses a pg database to store users. This db is containerised (see `\db\docker-compose.yml`).
+To start the server and database:
+1) `docker-compose up && ./dbinit.sh`
 
-To setup the postgresql server (start + build tables), run `/bin/sh dbinit.sh` in `\db`.
+N.B. You may need to `dbinit.sh` to be executable, to do so run `chmod +x dbinit.sh`.
 
 Testing
 ---
 To run the tests:
- 1) Start dev server with `npm run start:DEV`
- 2) Goto `/db` and run `/bin/sh dbinit.sh` to start the pg db container and build the necessary tables
- 2) Run `npm test` at the project route
+ 1) Start services (see above). N.B.
+ 2) Run `npm test` at project route
 
-N.B.
----
-This wont work on a windows machine due to how the env vars are set in `package.json`
+The tests will "clean up after themselves" (each unit tests flushes Users table).
+ 
+N.B. Tests need DB tables to be empty. A quick and cheap way to refresh all tables is by running `docker-compose down postgres && docker-compose up postgres -d && ./dbinit.sh`.
+
