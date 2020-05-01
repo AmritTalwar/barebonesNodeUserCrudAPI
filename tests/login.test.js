@@ -1,8 +1,7 @@
-const fs = require("fs");
-
 const assert = require("assert");
 const fetch = require("node-fetch");
-const User = require("../models/User");
+const flushDBUtil = require("../utils/flushDB");
+const dbConnection = require("../db/connectionPool");
 
 // TODO: Write test for malformed cookie response (when a user tries to login with an tampered session cookie)
 describe("/login", () => {
@@ -60,6 +59,6 @@ describe("/login", () => {
   });
 
   after("Flush test DB", async () => {
-    await User.flushAllUsers();
+    await flushDBUtil(dbConnection);
   });
 });

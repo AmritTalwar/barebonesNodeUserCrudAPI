@@ -12,17 +12,19 @@ const postNewUserRootHandler = (req, res) => {
       const parsedPostData = JSON.parse(
         Buffer.concat(parsedPostDataChunks).toString()
       );
+
       const userDoesNotExist = lodash.isEmpty(
         await User.getUser(parsedPostData.username)
       );
+
       if (userDoesNotExist) {
-        const newUser = new User(
+        const newUser = User.createUser(
           parsedPostData.email,
           parsedPostData.username,
           parsedPostData.password
         );
-        await newUser.saveUser();
 
+        await User.saveUser(newUser);
         res.writeHead(201, "User creation successful").end();
       } else {
         res.writeHead(409, "Username already taken").end();

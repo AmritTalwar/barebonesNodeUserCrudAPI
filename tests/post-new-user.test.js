@@ -2,7 +2,9 @@ const assert = require("assert");
 const lodash = require("lodash");
 const hash = require("../utils/hash");
 const User = require("../models/User");
+const dbConnection = require("../db/connectionPool");
 const fetch = require("node-fetch");
+const flushDBUtil = require("../utils/flushDB");
 
 describe("/post-new-user", () => {
   describe("When posting valid stringified JSON of the user creds", () => {
@@ -47,6 +49,6 @@ describe("/post-new-user", () => {
   });
 
   after("Flush test DB", async () => {
-    await User.flushAllUsers();
+    await flushDBUtil(dbConnection);
   });
 });
